@@ -30,6 +30,9 @@
         "jscs": "1.0.15"
     },
     "scripts": {
-        "lint": "make lint"
+        "test": "make validate",
+        "lint": "make lint",
+        "build": "make build",
+        "clean": "make clean"
     }
 }
