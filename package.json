@@ -24,6 +24,8 @@
     },
     "devDependencies": {
         "enb": ">= 0.8.22",
+        "mocha": "1.17.0",
+        "must": "0.10.0",
         "jshint": "2.3.0",
         "jscs": "1.0.15"
     },
