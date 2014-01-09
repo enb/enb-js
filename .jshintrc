@@ -9,7 +9,7 @@
     "unused"   : true,
     "maxlen"   : 120,
     "indent"   : 4,
-    "predef"   : ["describe", "it", "beforeEach"],
+    "predef"   : ["describe", "it", "before", "after", "beforeEach", "afterEach"],
     "quotmark" : "single",
     "maxerr": 5,
     "maxdepth": 2,
