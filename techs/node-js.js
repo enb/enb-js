@@ -21,9 +21,36 @@ module.exports = require('enb/lib/build-flow').create()
     .target('target', '?.node.js')
     .useFileList(['vanilla.js', 'node.js'])
     .builder(function(sourceFiles) {
-        var node = this.node;
-        return sourceFiles.map(function(file) {
-            return 'require(\'' + node.relativePath(file.fullname) + '\');';
-        }).join('\n');
+        var node = this.node,
+            dropRequireCacheFunc = [
+                'function dropRequireCache(requireFunc, filename) {',
+                '    var module = requireFunc.cache[filename];',
+                '    if (module) {',
+                '        if (module.parent) {',
+                '            if (module.parent.children) {',
+                '                var moduleIndex = module.parent.children.indexOf(module);',
+                '                if (moduleIndex !== -1) {',
+                '                    module.parent.children.splice(moduleIndex, 1);',
+                '                }',
+                '            }',
+                '            delete module.parent;',
+                '        }',
+                '        delete module.children;',
+                '        delete requireFunc.cache[filename];',
+                '    }',
+                '};'
+            ].join('\n');
+
+        return [
+            dropRequireCacheFunc,
+            sourceFiles.map(function(file) {
+                var relPath = node.relativePath(file.fullname);
+
+                return [
+                    'dropRequireCache(require, require.resolve("' + relPath + '"));',
+                    'require("' + relPath + '")'
+                ].join('\n');
+            }).join('\n')
+        ].join('\n');
     })
     .createTech();
