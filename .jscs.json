@@ -25,6 +25,7 @@
     },
     "excludeFiles": [
         "node_modules",
-        "test/fixtures"
+        "test/fixtures/.enb/tmp",
+        "test/fixtures/bundle"
     ]
 }
