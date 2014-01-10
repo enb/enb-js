@@ -1,6 +1,6 @@
 {
     "author": "Andrew Abramov <andrewblond@yandex.com>",
-    "description": "enb diverse js techs",
+    "description": "Diverse js techs for ENB: vanilla + browser + node",
     "name": "enb-diverse-js",
     "version": "0.0.1",
     "repository": "git://github.com/enb-make/enb-diverse-js",
