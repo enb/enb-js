@@ -2,7 +2,7 @@
     "author": "Andrew Abramov <andrewblond@yandex.com>",
     "description": "Diverse js techs for ENB: vanilla + browser + node",
     "name": "enb-diverse-js",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "repository": "git://github.com/enb-make/enb-diverse-js",
     "homepage": "https://github.com/enb-make/enb-diverse-js",
     "bugs": "https://github.com/enb-make/enb-diverse-js/issues",
