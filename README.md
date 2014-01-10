@@ -1,4 +1,4 @@
-enb-diverse-js [![Build Status](https://travis-ci.org/enb-make/enb-diverse-js.png?branch=master)](https://travis-ci.org/enb-make/enb-diverse-js) [![NPM version](https://badge.fury.io/js/enb-diverse-js.png)](http://badge.fury.io/js/enb-diverse-js)
+enb-diverse-js [![NPM version](https://badge.fury.io/js/enb-diverse-js.png)](http://badge.fury.io/js/enb-diverse-js) [![Build Status](https://travis-ci.org/enb-make/enb-diverse-js.png?branch=master)](https://travis-ci.org/enb-make/enb-diverse-js) [![Dependency Status](https://david-dm.org/enb-make/enb-diverse-js.png)](https://david-dm.org/enb-make/enb-diverse-js)
 ==============
 
 Поддержка js технологий для ENB.
@@ -8,6 +8,21 @@ enb-diverse-js [![Build Status](https://travis-ci.org/enb-make/enb-diverse-js.pn
 
 ```
 npm install enb-diverse-js
+```
+
+История изменений
+-----------------
+
+История изменений на [отдельной странице](/CHANGELOG.md).
+
+Разработка
+----------
+Руководство на [отдельной странице](/CONTRIBUTION.md).
+
+Запуск тестов
+-------------
+```
+$ make validate
 ```
 
 Технологии
@@ -51,7 +66,7 @@ nodeConfig.addTech(require('enb-diverse-js/techs/browser-js'));
 node-js
 =======
 
-Склеивает `vanilla.js` и `node.js`-файлы по deps'ам, сохраняет в виде `?.node.js`.
+Собирает `vanilla.js` и `node.js`-файлы по deps'ам с помощью `require`, сохраняет в виде `?.node.js`.
 
 **Опции**
 
