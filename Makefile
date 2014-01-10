@@ -8,18 +8,22 @@ MOCHA = $(NPM_BIN)/mocha
 validate: lint test
 
 .PHONY: lint
-lint:
+lint: npm_deps
 	$(JSHINT) .
 	$(JSCS) .
 
 .PHONY: test
-test: clean build
+test: npm_deps clean build
 	$(MOCHA) --recursive test/smoke
 
 .PHONY: build
-build:
+build: npm_deps
 	cd test/fixtures && ../../$(ENB) make --no-cache
 
 .PHONY: clean
-clean:
+clean: npm_deps
 	cd test/fixtures && ../../$(ENB) make clean
+
+.PHONY: npm_deps
+npm_deps:
+	npm install
