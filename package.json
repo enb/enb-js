@@ -27,7 +27,7 @@
         "mocha": "1.17.0",
         "must": "0.10.0",
         "jshint": "2.4.1",
-        "jscs": "1.2.0"
+        "jscs": "1.2.4"
     },
     "scripts": {
         "test": "make validate",
