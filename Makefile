@@ -10,7 +10,7 @@ validate: lint test
 .PHONY: lint
 lint: npm_deps
 	$(JSHINT) .
-	$(JSCS) .
+	$(JSCS) -c .jscs.js .
 
 .PHONY: test
 test: npm_deps clean build

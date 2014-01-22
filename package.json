@@ -24,6 +24,7 @@
     },
     "devDependencies": {
         "enb": ">= 0.8.22",
+        "enb-validate-code": "0.0.1",
         "mocha": "1.17.0",
         "must": "0.10.0",
         "jshint": "2.4.1",
