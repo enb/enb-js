@@ -1,4 +1,4 @@
-enb-diverse-js [![NPM version](https://badge.fury.io/js/enb-diverse-js.png)](http://badge.fury.io/js/enb-diverse-js) [![Build Status](https://travis-ci.org/enb-make/enb-diverse-js.png?branch=master)](https://travis-ci.org/enb-make/enb-diverse-js) [![Dependency Status](https://david-dm.org/enb-make/enb-diverse-js.png)](https://david-dm.org/enb-make/enb-diverse-js)
+enb-diverse-js [![NPM version](https://badge.fury.io/js/enb-diverse-js.png)](http://badge.fury.io/js/enb-diverse-js) [![Build Status](https://travis-ci.org/enb-make/enb-diverse-js.png?branch=master)](https://travis-ci.org/enb-make/enb-diverse-js) [![Dependency Status](https://gemnasium.com/enb-make/enb-diverse-js.png)](https://gemnasium.com/enb-make/enb-diverse-js)
 ==============
 
 Поддержка js технологий для ENB.
