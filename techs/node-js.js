@@ -7,6 +7,8 @@
  * **Опции**
  *
  * * *String* **target** — Результирующий таргет. По умолчанию — `?.node.js`.
+ * * *Array<String>* **source** — Суффиксы файлов, из которых собирается таргет.
+ *   По умолчанию — `['vanilla.js', 'node.js']`.
  * * *String* **filesTarget** — files-таргет, на основе которого получается список исходных файлов
  *   (его предоставляет технология `files`). По умолчанию — `?.files`.
  *
@@ -19,7 +21,8 @@
 module.exports = require('enb/lib/build-flow').create()
     .name('node-js')
     .target('target', '?.node.js')
-    .useFileList(['vanilla.js', 'node.js'])
+    .useSourceResult('filesTarget', '?.files')
+    .defineOption('source', ['vanilla.js', 'node.js'])
     .builder(function (sourceFiles) {
         var node = this.node;
         var dropRequireCacheFunc = [
@@ -43,7 +46,9 @@ module.exports = require('enb/lib/build-flow').create()
 
         return [
             dropRequireCacheFunc,
-            sourceFiles.map(function (file) {
+            sourceFiles.items.filter(function (item) {
+                return this._source.indexOf(item.suffix) > -1;
+            }, this).map(function (file) {
                 var relPath = node.relativePath(file.fullname);
 
                 return [
