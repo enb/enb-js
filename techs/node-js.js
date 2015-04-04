@@ -66,16 +66,14 @@ module.exports = require('enb/lib/build-flow').create()
 
         // сортировка сущностей по суффиксам и конкатенация в общий массив
         Object.keys(filesBySuffixes).forEach(function(key) {
-            sortedFiles.concat(filesBySuffixes[key].sort(function(a, b) {
+            sortedFiles = sortedFiles.concat(filesBySuffixes[key].sort(function(a, b) {
                 return suffixIndexes[a.suffix] - suffixIndexes[b.suffix];
             }));
         });
 
         return [
             dropRequireCacheFunc,
-            sourceFiles.items.filter(function(item) {
-                return this._source.indexOf(item.suffix) > -1;
-            }, this).map(function (file) {
+            sortedFiles.map(function (file) {
                 var relPath = node.relativePath(file.fullname);
 
                 return [
