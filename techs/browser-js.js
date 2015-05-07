@@ -21,7 +21,7 @@
 module.exports = require('enb/lib/build-flow').create()
     .name('browser-js')
     .target('target', '?.browser.js')
-    .useSourceResult('filesTarget', 'target')
+    .useSourceResult('filesTarget', '?.files')
     .defineOption('source', ['vanilla.js', 'js', 'browser.js'])
     .builder(function (sourceFiles) {
         var files = sourceFiles.items.filter(function(item) { return this._source.indexOf(item.suffix) > -1; }, this),
