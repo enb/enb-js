@@ -22,7 +22,7 @@ npm install enb-diverse-js
 Запуск тестов
 -------------
 ```
-$ make validate
+$ npm test
 ```
 
 Технологии
