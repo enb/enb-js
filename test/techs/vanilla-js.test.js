@@ -29,13 +29,14 @@ describe('vanilla-js', function () {
 
         bundle.provideTechData('?.files', fileList);
 
-        var reference =
-            '/* begin: ../blocks/block1.vanilla.js */\n' +
-            'Hello1\n' +
-            '/* end: ../blocks/block1.vanilla.js */\n' +
-            '/* begin: ../blocks/block2.vanilla.js */\n' +
-            'Hello2\n' +
-            '/* end: ../blocks/block2.vanilla.js */';
+        var reference = [
+            '/* begin: ../blocks/block1.vanilla.js */',
+            'Hello1',
+            '/* end: ../blocks/block1.vanilla.js */',
+            '/* begin: ../blocks/block2.vanilla.js */',
+            'Hello2',
+            '/* end: ../blocks/block2.vanilla.js */'
+        ].join('\n');
 
         return bundle.runTechAndGetContent(vanillaJs)
             .spread(function (content) {
