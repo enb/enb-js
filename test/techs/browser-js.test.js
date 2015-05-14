@@ -14,6 +14,7 @@ describe('browser-js', function () {
     it('must join files with comments', function () {
         var scheme = {
             blocks: {
+                'block0.vanilla.js': 'Hello0',
                 'block1.browser.js': 'Hello1',
                 'block2.browser.js': 'Hello2'
             },
@@ -30,6 +31,9 @@ describe('browser-js', function () {
         bundle.provideTechData('?.files', fileList);
 
         var reference = [
+            '/* begin: ../blocks/block0.vanilla.js */',
+            'Hello0',
+            '/* end: ../blocks/block0.vanilla.js */',
             '/* begin: ../blocks/block1.browser.js */',
             'Hello1',
             '/* end: ../blocks/block1.browser.js */',
