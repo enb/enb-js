@@ -25,14 +25,20 @@
     "devDependencies": {
         "enb": ">= 0.8.22",
         "enb-validate-code": "0.0.1",
-        "mocha": "1.17.0",
-        "must": "0.10.0",
-        "jshint": "2.4.1",
-        "jscs": "1.2.4"
+        "chai": "2.3.0",
+        "finalhandler": "0.3.5",
+        "istanbul": "0.3.14",
+        "jscs": "1.13.1",
+        "jshint": "2.7.0",
+        "mocha": "2.2.4",
+        "mock-fs": "2.7.0",
+        "must": "0.12.0"
     },
     "scripts": {
-        "test": "make validate",
-        "lint": "make lint",
+        "test": "npm run lint && npm run cover",
+        "lint": "jshint . && jscs -c .jscs.js .",
+        "unit": "mocha -R spec",
+        "cover": "istanbul cover _mocha",
         "build": "make build",
         "clean": "make clean"
     }
