@@ -14,6 +14,10 @@
         {
             "name": "Andrew Abramov",
             "email": "andrewblond@yandex.com"
+        },
+        {
+            "name": "Andrew Kuznetsov",
+            "email": "andrey.kuznetsov48@yandex.ru"
         }
     ],
     "engines": {
@@ -35,11 +39,10 @@
         "must": "0.12.0"
     },
     "scripts": {
-        "test": "npm run lint && npm run cover",
+        "test": "npm run lint && npm run unit",
         "lint": "jshint . && jscs -c .jscs.js .",
         "unit": "mocha -R spec",
         "cover": "istanbul cover _mocha",
-        "build": "make build",
-        "clean": "make clean"
+        "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
     }
 }
