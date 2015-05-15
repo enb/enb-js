@@ -2,4 +2,3 @@ test/**/*.test.js
 --ui bdd
 --reporter dot
 --require must
---no-timeouts
