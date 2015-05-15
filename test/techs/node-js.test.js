@@ -1,11 +1,17 @@
 var fs = require('fs'),
+    path = require('path'),
     mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
+    dropRequireCache = require('enb/lib/fs/drop-require-cache'),
     TestNode = require('enb/lib/test/mocks/test-node'),
     nodeJs = require('../../techs/node-js');
 
 describe('node-js', function () {
     var bundle;
+
+    beforeEach(function () {
+        global.REQUIRED_TECHS = [];
+    });
 
     afterEach(function () {
         mock.restore();
@@ -17,15 +23,9 @@ describe('node-js', function () {
         beforeEach(function (done) {
             var scheme = {
                 blocks: {
-                    'block0.vanilla.js': '' +
-                    'global.REQUIRED_TECHS = global.REQUIRED_TECHS || [];' +
-                    'global.REQUIRED_TECHS.push("vanilla0-js");',
-                    'block1.node.js': '' +
-                    'global.REQUIRED_TECHS = global.REQUIRED_TECHS || [];' +
-                    'global.REQUIRED_TECHS.push("node1-js");',
-                    'block2.node.js': '' +
-                    'global.REQUIRED_TECHS = global.REQUIRED_TECHS || [];' +
-                    'global.REQUIRED_TECHS.push("node2-js");'
+                    'block0.vanilla.js': 'global.REQUIRED_TECHS.push("vanilla0-js");',
+                    'block1.node.js': 'global.REQUIRED_TECHS.push("node1-js");',
+                    'block2.node.js': 'global.REQUIRED_TECHS.push("node2-js");'
                 },
                 bundle: {}
             };
@@ -41,7 +41,7 @@ describe('node-js', function () {
 
             return bundle.runTechAndRequire(nodeJs)
                 .then(function () {
-                    techs = global['REQUIRED_TECHS']
+                    techs = global['REQUIRED_TECHS'];
                     done();
                 });
         });
@@ -59,6 +59,13 @@ describe('node-js', function () {
 
         it('must require techs in order', function () {
             techs.indexOf('node1-js').must.be.above(techs.indexOf('vanilla0-js'));
+        });
+
+        it('must drop require cache', function () {
+            fs.writeFileSync('./blocks/block2.node.js', 'global.REQUIRED_TECHS.push("fake-node-js");');
+            dropRequireCache(require, path.resolve('./bundle/bundle.node.js'));
+            require(path.resolve('./bundle/bundle.node.js'));
+            techs.must.include('fake-node-js');
         });
     });
 });
