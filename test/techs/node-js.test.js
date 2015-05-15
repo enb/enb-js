@@ -41,7 +41,7 @@ describe('node-js', function () {
 
             return bundle.runTechAndRequire(nodeJs)
                 .then(function () {
-                    techs = global['REQUIRED_TECHS'];
+                    techs = global.REQUIRED_TECHS;
                     done();
                 });
         });
