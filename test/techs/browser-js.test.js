@@ -1,5 +1,4 @@
-var fs = require('fs'),
-    mock = require('mock-fs'),
+var mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
     TestNode = require('enb/lib/test/mocks/test-node'),
     browserJs = require('../../techs/browser-js');
