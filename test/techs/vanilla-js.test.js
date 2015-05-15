@@ -5,14 +5,16 @@ var fs = require('fs'),
     vanillaJs = require('../../techs/vanilla-js');
 
 describe('vanilla-js', function () {
-    var bundle;
+    var bundle,
+        fileList,
+        scheme;
 
     afterEach(function () {
         mock.restore();
     });
 
     it('must join files with comments', function () {
-        var scheme = {
+        scheme = {
             blocks: {
                 'block1.vanilla.js': 'Hello1',
                 'block2.vanilla.js': 'Hello2'
@@ -23,7 +25,7 @@ describe('vanilla-js', function () {
         mock(scheme);
 
         bundle = new TestNode('bundle');
-        var fileList = new FileList();
+        fileList = new FileList();
 
         fileList.loadFromDirSync('blocks');
 
@@ -40,9 +42,7 @@ describe('vanilla-js', function () {
 
         return bundle.runTechAndGetContent(vanillaJs)
             .spread(function (content) {
-                content.toString('utf-8').must.be(reference);
-                var data = fs.readFileSync('bundle/bundle.vanilla.js', { encoding: 'utf-8' });
-                data.must.be(reference);
+                content.toString().must.be(reference);
             });
     });
 });

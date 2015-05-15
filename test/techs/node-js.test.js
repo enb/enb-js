@@ -20,12 +20,11 @@ describe('node-js', function () {
     describe('must join files', function () {
         var techs;
 
-        beforeEach(function (done) {
+        beforeEach(function () {
             var scheme = {
                 blocks: {
-                    'block0.vanilla.js': 'global.REQUIRED_TECHS.push("vanilla0-js");',
-                    'block1.node.js': 'global.REQUIRED_TECHS.push("node1-js");',
-                    'block2.node.js': 'global.REQUIRED_TECHS.push("node2-js");'
+                    'block.vanilla.js': 'global.REQUIRED_TECHS.push("vanilla-js");',
+                    'block.node.js': 'global.REQUIRED_TECHS.push("node-js");'
                 },
                 bundle: {}
             };
@@ -42,27 +41,17 @@ describe('node-js', function () {
             return bundle.runTechAndRequire(nodeJs)
                 .then(function () {
                     techs = global.REQUIRED_TECHS;
-                    done();
                 });
         });
 
-        it('must require vanilla-js tech', function () {
-            techs.must.include('vanilla0-js');
-            techs.must.include('node1-js');
-            techs.must.include('node2-js');
-        });
-
-        it('must require node-js techs', function () {
-            techs.must.include('node1-js');
-            techs.must.include('node2-js');
-        });
-
-        it('must require techs in order', function () {
-            techs.indexOf('node1-js').must.be.above(techs.indexOf('vanilla0-js'));
+        it('must require all given techs in valid order', function () {
+            techs.must.include('vanilla-js');
+            techs.must.include('node-js');
+            techs.indexOf('node-js').must.be.above(techs.indexOf('vanilla-js'));
         });
 
         it('must drop require cache', function () {
-            fs.writeFileSync('./blocks/block2.node.js', 'global.REQUIRED_TECHS.push("fake-node-js");');
+            fs.writeFileSync('./blocks/block.node.js', 'global.REQUIRED_TECHS.push("fake-node-js");');
             dropRequireCache(require, path.resolve('./bundle/bundle.node.js'));
             require(path.resolve('./bundle/bundle.node.js'));
             techs.must.include('fake-node-js');

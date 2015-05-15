@@ -5,18 +5,19 @@ var fs = require('fs'),
     browserJs = require('../../techs/browser-js');
 
 describe('browser-js', function () {
-    var bundle;
+    var bundle,
+        fileList,
+        scheme;
 
     afterEach(function () {
         mock.restore();
     });
 
     it('must join files with comments', function () {
-        var scheme = {
+        scheme = {
             blocks: {
                 'block0.vanilla.js': 'Hello0',
-                'block1.browser.js': 'Hello1',
-                'block2.browser.js': 'Hello2'
+                'block1.browser.js': 'Hello1'
             },
             bundle: {}
         };
@@ -24,7 +25,7 @@ describe('browser-js', function () {
         mock(scheme);
 
         bundle = new TestNode('bundle');
-        var fileList = new FileList();
+        fileList = new FileList();
 
         fileList.loadFromDirSync('blocks');
 
@@ -36,17 +37,12 @@ describe('browser-js', function () {
             '/* end: ../blocks/block0.vanilla.js */',
             '/* begin: ../blocks/block1.browser.js */',
             'Hello1',
-            '/* end: ../blocks/block1.browser.js */',
-            '/* begin: ../blocks/block2.browser.js */',
-            'Hello2',
-            '/* end: ../blocks/block2.browser.js */'
+            '/* end: ../blocks/block1.browser.js */'
         ].join('\n');
 
         return bundle.runTechAndGetContent(browserJs)
             .spread(function (content) {
-                content.toString('utf-8').must.be(reference);
-                var data = fs.readFileSync('bundle/bundle.browser.js', { encoding: 'utf-8' });
-                data.must.be(reference);
+                content.toString().must.be(reference);
             });
     });
 });
