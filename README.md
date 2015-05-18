@@ -1,13 +1,18 @@
-enb-diverse-js [![NPM version](https://badge.fury.io/js/enb-diverse-js.png)](http://badge.fury.io/js/enb-diverse-js) [![Build Status](https://travis-ci.org/enb-make/enb-diverse-js.png?branch=master)](https://travis-ci.org/enb-make/enb-diverse-js) [![Dependency Status](https://gemnasium.com/enb-make/enb-diverse-js.png)](https://gemnasium.com/enb-make/enb-diverse-js)
+enb-diverse-js 
 ==============
+
+[![NPM version](https://img.shields.io/npm/v/enb-diverse-js.svg?style=flat)](https://www.npmjs.org/package/enb-diverse-js) 
+[![Build Status](https://img.shields.io/travis/enb-make/enb-diverse-js/master.svg?style=flat&label=tests)](https://travis-ci.org/enb-make/enb-diverse-js) 
+[![Coverage Status](https://img.shields.io/coveralls/enb-make/enb-diverse-js.svg?style=flat)](https://coveralls.io/r/enb-make/enb-diverse-js?branch=master) 
+[![Dependency Status](https://img.shields.io/david/enb-make/enb-diverse-js.svg?style=flat)](https://david-dm.org/enb-make/enb-diverse-js)
 
 Поддержка js технологий для ENB.
 
 Установка:
 ----------
 
-```
-npm install enb-diverse-js
+```sh
+$ npm install --save-dev enb-diverse-js
 ```
 
 История изменений
@@ -21,8 +26,8 @@ npm install enb-diverse-js
 
 Запуск тестов
 -------------
-```
-$ make validate
+```sh
+$ npm test
 ```
 
 Технологии

@@ -21,8 +21,8 @@ module.exports = require('enb/lib/build-flow').create()
     .target('target', '?.node.js')
     .useFileList(['vanilla.js', 'node.js'])
     .builder(function (sourceFiles) {
-        var node = this.node;
-        var dropRequireCacheFunc = [
+        var node = this.node,
+            dropRequireCacheFunc = [
                 'function dropRequireCache(requireFunc, filename) {',
                 '    var module = requireFunc.cache[filename];',
                 '    if (module) {',
