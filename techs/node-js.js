@@ -16,6 +16,7 @@
  * nodeConfig.addTech(require('enb-diverse-js/techs/node-js'));
  * ```
  */
+var EOL = require('os').EOL;
 module.exports = require('enb/lib/build-flow').create()
     .name('node-js')
     .target('target', '?.node.js')
@@ -39,7 +40,7 @@ module.exports = require('enb/lib/build-flow').create()
                 '        delete requireFunc.cache[filename];',
                 '    }',
                 '};'
-            ].join('\n');
+            ].join(EOL);
 
         return [
             dropRequireCacheFunc,
@@ -49,8 +50,8 @@ module.exports = require('enb/lib/build-flow').create()
                 return [
                     'dropRequireCache(require, require.resolve("' + relPath + '"));',
                     'require("' + relPath + '")'
-                ].join('\n');
-            }).join('\n')
-        ].join('\n');
+                ].join(EOL);
+            }).join(EOL)
+        ].join(EOL);
     })
     .createTech();

@@ -1,4 +1,5 @@
-var mock = require('mock-fs'),
+var EOL = require('os').EOL,
+    mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
     MockNode = require('mock-enb/lib/mock-node'),
     vanillaJs = require('../../techs/vanilla-js');
@@ -37,7 +38,7 @@ describe('vanilla-js', function () {
             '/* begin: ../blocks/block2.vanilla.js */',
             'Hello2',
             '/* end: ../blocks/block2.vanilla.js */'
-        ].join('\n');
+        ].join(EOL);
 
         return bundle.runTechAndGetContent(vanillaJs)
             .spread(function (content) {
