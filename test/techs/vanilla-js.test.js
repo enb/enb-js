@@ -1,6 +1,6 @@
 var mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
-    TestNode = require('enb/lib/test/mocks/test-node'),
+    MockNode = require('mock-enb/lib/mock-node'),
     vanillaJs = require('../../techs/vanilla-js');
 
 describe('vanilla-js', function () {
@@ -23,7 +23,7 @@ describe('vanilla-js', function () {
 
         mock(scheme);
 
-        bundle = new TestNode('bundle');
+        bundle = new MockNode('bundle');
         fileList = new FileList();
 
         fileList.loadFromDirSync('blocks');
