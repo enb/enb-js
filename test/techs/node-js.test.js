@@ -3,7 +3,7 @@ var fs = require('fs'),
     mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
     dropRequireCache = require('enb/lib/fs/drop-require-cache'),
-    TestNode = require('enb/lib/test/mocks/test-node'),
+    MockNode = require('mock-enb/lib/mock-node'),
     nodeJs = require('../../techs/node-js');
 
 describe('node-js', function () {
@@ -31,7 +31,7 @@ describe('node-js', function () {
 
             mock(scheme);
 
-            bundle = new TestNode('bundle');
+            bundle = new MockNode('bundle');
             var fileList = new FileList();
 
             fileList.loadFromDirSync('blocks');
