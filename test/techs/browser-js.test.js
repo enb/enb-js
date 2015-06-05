@@ -1,4 +1,5 @@
-var mock = require('mock-fs'),
+var EOL = require('os').EOL,
+    mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
     MockNode = require('mock-enb/lib/mock-node'),
     browserJs = require('../../techs/browser-js');
@@ -37,7 +38,7 @@ describe('browser-js', function () {
             '/* begin: ../blocks/block1.browser.js */',
             'Hello1',
             '/* end: ../blocks/block1.browser.js */'
-        ].join('\n');
+        ].join(EOL);
 
         return bundle.runTechAndGetContent(browserJs)
             .spread(function (content) {
