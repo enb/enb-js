@@ -13,6 +13,7 @@
     "unused": true,
 
     "node": true,
+    "mocha": true,
 
     "expr": true,
     "sub": true
