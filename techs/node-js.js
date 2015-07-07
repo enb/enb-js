@@ -21,6 +21,7 @@ module.exports = require('enb/lib/build-flow').create()
     .name('node-js')
     .target('target', '?.node.js')
     .useFileList(['vanilla.js', 'node.js'])
+    .defineOption('devMode', true)
     .builder(function (sourceFiles) {
         var node = this.node,
             dropRequireCacheFunc = [
@@ -40,16 +41,17 @@ module.exports = require('enb/lib/build-flow').create()
                 '        delete requireFunc.cache[filename];',
                 '    }',
                 '};'
-            ].join(EOL);
+            ].join(EOL),
+            devMode = this._devMode || '';
 
         return [
-            dropRequireCacheFunc,
+            devMode && dropRequireCacheFunc,
             sourceFiles.map(function (file) {
                 var relPath = node.relativePath(file.fullname);
 
                 return [
-                    'dropRequireCache(require, require.resolve("' + relPath + '"));',
-                    'require("' + relPath + '")'
+                    devMode && 'dropRequireCache(require, require.resolve("' + relPath + '"));',
+                    'require("' + relPath + '");'
                 ].join(EOL);
             }).join(EOL)
         ].join(EOL);
