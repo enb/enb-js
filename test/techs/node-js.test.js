@@ -23,7 +23,7 @@ describe('node-js', function () {
             'block.node.js': 'global.REQUIRED_TECHS.push("node-js");'
         };
 
-        it('must join files all files', function () {
+        it('must join all files', function () {
             return build(blocks)
                 .then(function () {
                     globals.must.include('vanilla-js');
