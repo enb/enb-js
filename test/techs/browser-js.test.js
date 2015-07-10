@@ -2,48 +2,77 @@ var EOL = require('os').EOL,
     mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
     MockNode = require('mock-enb/lib/mock-node'),
-    browserJs = require('../../techs/browser-js');
+    browserJsTech = require('../../techs/browser-js');
 
 describe('browser-js', function () {
-    var bundle,
-        fileList,
-        scheme;
-
     afterEach(function () {
         mock.restore();
     });
 
-    it('must join files with comments', function () {
-        scheme = {
-            blocks: {
+    describe('must join files with comments', function () {
+        it('must join all files', function () {
+            var blocks = {
                 'block0.vanilla.js': 'Hello0',
                 'block1.browser.js': 'Hello1'
             },
-            bundle: {}
-        };
+                reference = [
+                '/* begin: ../blocks/block0.vanilla.js */',
+                'Hello0',
+                '/* end: ../blocks/block0.vanilla.js */',
+                '/* begin: ../blocks/block1.browser.js */',
+                'Hello1',
+                '/* end: ../blocks/block1.browser.js */'
+            ].join(EOL);
 
-        mock(scheme);
+            return build(blocks)
+                .then(function (content) {
+                    content[0].must.be(reference);
+                });
+        });
+    });
 
-        bundle = new MockNode('bundle');
-        fileList = new FileList();
+    describe('code executes', function () {
+        var globals,
+            blocks = {
+                'block0.vanilla.js': 'var a = 1;',
+                'block1.browser.js': 'var a; global.TEST.push(a || 2);'
+            };
 
-        fileList.loadFromDirSync('blocks');
+        beforeEach(function () {
+            globals = global.TEST = [];
+        });
 
-        bundle.provideTechData('?.files', fileList);
+        it('code must executed in isolation', function () {
+            return build(blocks, { iife: true }, true)
+                .then(function () {
+                    globals[0].must.be(2);
+                });
+        });
 
-        var reference = [
-            '/* begin: ../blocks/block0.vanilla.js */',
-            'Hello0',
-            '/* end: ../blocks/block0.vanilla.js */',
-            '/* begin: ../blocks/block1.browser.js */',
-            'Hello1',
-            '/* end: ../blocks/block1.browser.js */'
-        ].join(EOL);
-
-        return bundle.runTechAndGetContent(browserJs)
-            .spread(function (content) {
-                content.toString().must.be(reference);
-            });
+        it('code must  be executed in the same scoupe', function () {
+            return build(blocks, null, true)
+                .then(function () {
+                    globals[0].must.be(1);
+                });
+        });
     });
 });
 
+function build(blocks, options, isNeedRequire) {
+    mock({
+        blocks: blocks,
+        bundle: {}
+    });
+
+    var bundle = new MockNode('bundle'),
+        fileList = new FileList(),
+        testFunc;
+
+    fileList.loadFromDirSync('blocks');
+
+    bundle.provideTechData('?.files', fileList);
+
+    testFunc = isNeedRequire ? bundle.runTechAndRequire : bundle.runTechAndGetContent;
+
+    return testFunc.call(bundle, browserJsTech, options);
+}

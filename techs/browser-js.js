@@ -16,9 +16,26 @@
  * nodeConfig.addTech(require('enb-diverse-js/techs/browser-js'));
  * ```
  */
+var EOL = require('os').EOL;
 module.exports = require('enb/lib/build-flow').create()
     .name('browser-js')
     .target('target', '?.browser.js')
     .useFileList(['vanilla.js', 'js', 'browser.js'])
-    .justJoinFilesWithComments()
+    .defineOption('iife', false)
+    .justJoinFiles(function (filename, contents) {
+        var relPath = this.node.relativePath(filename);
+
+        if (this._iife) {
+            contents = [
+                '(function(){',
+                contents,
+                '}());'
+            ].join(EOL);
+        }
+        return [
+            '/* begin: ' + relPath + ' */',
+            contents,
+            '/* end: ' + relPath + ' *' + '/'
+        ].join(EOL);
+    })
     .createTech();
