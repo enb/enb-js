@@ -16,12 +16,16 @@
  * nodeConfig.addTech(require('enb-diverse-js/techs/node-js'));
  * ```
  */
-var EOL = require('os').EOL;
+var EOL = require('os').EOL,
+    browserify = require('browserify'),
+    promisify = require('vow-node').promisify;
+
 module.exports = require('enb/lib/build-flow').create()
     .name('node-js')
     .target('target', '?.node.js')
     .useFileList(['vanilla.js', 'node.js'])
     .defineOption('devMode', true)
+    .defineOption('bundled', false)
     .builder(function (sourceFiles) {
         var node = this.node,
             dropRequireCacheFunc = [
@@ -43,6 +47,24 @@ module.exports = require('enb/lib/build-flow').create()
                 '};'
             ].join(EOL),
             devMode = this._devMode || '';
+
+        if (this._bundled) {
+            var files = sourceFiles.map(function (file) {
+                    return node.relativePath(file.fullname);
+                }),
+                browserifyOptions = {
+                    basedir: node.getDir(),
+                    builtins: [],
+                    bundleExternal: false
+                },
+                renderer = browserify(files, browserifyOptions),
+                bundle = promisify(renderer.bundle.bind(renderer));
+
+            return bundle()
+                .then(function (buf) {
+                    return buf.toString('utf-8');
+                });
+        }
 
         return [
             devMode && dropRequireCacheFunc,

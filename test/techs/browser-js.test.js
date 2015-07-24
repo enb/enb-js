@@ -1,3 +1,7 @@
+require('chai')
+    .use(require('chai-as-promised'))
+    .should();
+
 var EOL = require('os').EOL,
     mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
@@ -26,7 +30,7 @@ describe('browser-js', function () {
 
             return build(blocks)
                 .then(function (content) {
-                    content[0].must.be(reference);
+                    content[0].should.be.equal(reference);
                 });
         });
     });
@@ -45,14 +49,14 @@ describe('browser-js', function () {
         it('code must executed in isolation', function () {
             return build(blocks, { iife: true }, true)
                 .then(function () {
-                    globals[0].must.be(2);
+                    globals[0].should.be.equal(2);
                 });
         });
 
         it('code must  be executed in the same scoupe', function () {
             return build(blocks, null, true)
                 .then(function () {
-                    globals[0].must.be(1);
+                    globals[0].should.be.equal(1);
                 });
         });
     });

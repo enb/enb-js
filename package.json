@@ -29,6 +29,8 @@
     "enb": ">= 0.8.22"
   },
   "devDependencies": {
+    "chai": "3.2.0",
+    "chai-as-promised": "5.1.0",
     "enb": ">= 0.8.22",
     "istanbul": "0.3.14",
     "jscs": "1.13.1",
@@ -36,7 +38,7 @@
     "mocha": "2.2.4",
     "mock-enb": "0.0.2",
     "mock-fs": "3.0.0",
-    "must": "0.12.0"
+    "rimraf": "2.4.2"
   },
   "scripts": {
     "test": "npm run lint && npm run unit",
@@ -44,5 +46,10 @@
     "unit": "mocha -R spec",
     "cover": "istanbul cover _mocha",
     "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+  },
+  "dependencies": {
+    "browserify": "10.2.6",
+    "vow": "0.4.10",
+    "vow-node": "0.3.0"
   }
 }
