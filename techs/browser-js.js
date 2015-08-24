@@ -1,4 +1,5 @@
-var EOL = require('os').EOL;
+var minify = require('uglify-js').minify,
+    EOL = require('os').EOL;
 
 /**
  * @class BrowserJsTech
@@ -19,6 +20,7 @@ var EOL = require('os').EOL;
  *                                                                                 involved in the assembly.
  * @param {Boolean}   [options.iife=false]                                         Adds an option to wrap merged<br>
  *                                                                                 files to IIFE.
+ * @param {Boolean}   [options.compress=false]                                     Minifies and compresses JS code.
  *
  * @example
  * // Code in a file system before build:
@@ -56,6 +58,14 @@ module.exports = require('enb/lib/build-flow').create()
     .target('target', '?.browser.js')
     .useFileList(['vanilla.js', 'js', 'browser.js'])
     .defineOption('iife', false)
+    .defineOption('compress', false)
+    .wrapper(function (str) {
+        if (this._compress) {
+            return minify(str, { fromString: true }).code;
+        }
+
+        return str;
+    })
     .justJoinFiles(function (filename, contents) {
         var relPath = this.node.relativePath(filename);
 
@@ -66,10 +76,16 @@ module.exports = require('enb/lib/build-flow').create()
                 '}());'
             ].join(EOL);
         }
-        return [
-            '/* begin: ' + relPath + ' */',
-            contents,
-            '/* end: ' + relPath + ' *' + '/'
-        ].join(EOL);
+
+        // after compression comments will be removed
+        if (!this._compress) {
+            contents = [
+                '/* begin: ' + relPath + ' */',
+                contents,
+                '/* end: ' + relPath + ' *' + '/'
+            ].join(EOL);
+        }
+
+        return contents;
     })
     .createTech();

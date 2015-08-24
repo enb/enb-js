@@ -28,6 +28,12 @@
   "peerDependencies": {
     "enb": ">= 0.8.22"
   },
+  "dependencies": {
+    "browserify": "10.2.6",
+    "uglify-js": "2.4.24",
+    "vow": "0.4.10",
+    "vow-node": "0.3.0"
+  },
   "devDependencies": {
     "chai": "3.2.0",
     "chai-as-promised": "5.1.0",
@@ -46,10 +52,5 @@
     "unit": "mocha -R spec",
     "cover": "istanbul cover _mocha",
     "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
-  },
-  "dependencies": {
-    "browserify": "10.2.6",
-    "vow": "0.4.10",
-    "vow-node": "0.3.0"
   }
 }
