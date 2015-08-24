@@ -13,7 +13,7 @@ describe('browser-js', function () {
         mock.restore();
     });
 
-    describe('must join files with comments', function () {
+    describe('join files', function () {
         it('must join all files', function () {
             var blocks = {
                 'block0.vanilla.js': 'Hello0',
@@ -29,8 +29,23 @@ describe('browser-js', function () {
             ].join(EOL);
 
             return build(blocks)
-                .then(function (content) {
-                    content[0].should.be.equal(reference);
+                .spread(function (content) {
+                    content.should.be.equal(reference);
+                });
+        });
+    });
+
+    describe('compress', function () {
+        it('must compress files', function () {
+            var blocks = {
+                    'block0.vanilla.js': 'var b = function () {};',
+                    'block1.browser.js': 'if (foo) { bar(); }'
+                },
+                reference = 'var b=function(){};foo&&bar();';
+
+            return build(blocks, { compress: true })
+                .spread(function (content) {
+                    content.should.be.equal(reference);
                 });
         });
     });
