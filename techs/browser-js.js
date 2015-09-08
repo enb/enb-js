@@ -1,5 +1,8 @@
-var minify = require('uglify-js').minify,
-    EOL = require('os').EOL;
+var vow = require('vow'),
+    vfs = require('enb/lib/fs/async-fs'),
+    utils = require('enb-source-map/lib/utils'),
+    File = require('enb-source-map/lib/file'),
+    minify = require('uglify-js').minify;
 
 /**
  * @class BrowserJsTech
@@ -21,6 +24,7 @@ var minify = require('uglify-js').minify,
  * @param {Boolean}   [options.iife=false]                                         Adds an option to wrap merged<br>
  *                                                                                 files to IIFE.
  * @param {Boolean}   [options.compress=false]                                     Minifies and compresses JS code.
+ * @param {Boolean}   [options.sourcemap=false]                                    Includes inline source maps.
  *
  * @example
  * // Code in a file system before build:
@@ -59,33 +63,60 @@ module.exports = require('enb/lib/build-flow').create()
     .useFileList(['vanilla.js', 'js', 'browser.js'])
     .defineOption('iife', false)
     .defineOption('compress', false)
-    .wrapper(function (str) {
-        if (this._compress) {
-            return minify(str, { fromString: true }).code;
-        }
+    .defineOption('sourcemap', false)
+    .builder(function (sourceFiles) {
+        return this._readSourceFiles(sourceFiles)
+            .then(function (sources) {
+                var file = new File(this.node.resolvePath(this._target), { sourceMap: this._sourcemap }),
+                    needWrapIIFE = this._iife,
+                    needToAddComments = !this._compress,
+                    compressOptions = { fromString: true },
+                    compressed;
 
-        return str;
+                sources.forEach(function (source) {
+                    needToAddComments && file.writeLine('/* begin: ' + source.relPath + ' */');
+                    needWrapIIFE && file.writeLine('(function(){');
+                    file.writeFileContent(source.path, source.contents);
+                    needWrapIIFE && file.writeLine('}());');
+                    needToAddComments && file.writeLine('/* end: ' + source.relPath + ' */');
+                });
+
+                if (!this._compress) {
+                    return file.render();
+                }
+
+                if (!this._sourcemap) {
+                    return minify(file.render(), compressOptions).code;
+                }
+
+                compressOptions.inSourceMap = file.getSourceMap();
+                compressOptions.outSourceMap = this._target + '.map';
+
+                compressed = minify(file.getContent(), compressOptions);
+                return utils.joinContentAndSourceMap(compressed.code, compressed.map);
+            }, this);
     })
-    .justJoinFiles(function (filename, contents) {
-        var relPath = this.node.relativePath(filename);
+    .methods({
+        /**
+         * Reads source js files.
+         *
+         * @protected
+         * @param {FileList} files
+         * @returns {FileData[]}
+         */
+        _readSourceFiles: function (files) {
+            var node = this.node;
 
-        if (this._iife) {
-            contents = [
-                '(function(){',
-                contents,
-                '}());'
-            ].join(EOL);
+            return vow.all(files.map(function (file) {
+                return vfs.read(file.fullname, 'utf8')
+                    .then(function (contents) {
+                        return {
+                            path: file.fullname,
+                            relPath: node.relativePath(file.fullname),
+                            contents: contents
+                        };
+                    });
+            }));
         }
-
-        // after compression comments will be removed
-        if (!this._compress) {
-            contents = [
-                '/* begin: ' + relPath + ' */',
-                contents,
-                '/* end: ' + relPath + ' *' + '/'
-            ].join(EOL);
-        }
-
-        return contents;
     })
     .createTech();
