@@ -25,7 +25,8 @@ describe('browser-js', function () {
                 '/* end: ../blocks/block0.vanilla.js */',
                 '/* begin: ../blocks/block1.browser.js */',
                 'Hello1',
-                '/* end: ../blocks/block1.browser.js */'
+                '/* end: ../blocks/block1.browser.js */',
+                ''
             ].join(EOL);
 
             return build(blocks)
@@ -72,6 +73,32 @@ describe('browser-js', function () {
             return build(blocks, null, true)
                 .then(function () {
                     globals[0].should.be.equal(1);
+                });
+        });
+    });
+
+    describe('sourcemap', function () {
+        it('must generate sourcemap', function () {
+            var blocks = {
+                    'block0.vanilla.js': 'Hello0',
+                    'block1.browser.js': 'Hello1'
+                };
+
+            return build(blocks, { sourcemap: true })
+                .spread(function (content) {
+                    content.should.match(/sourceMappingURL/);
+                });
+        });
+
+        it('must generate sourcemap with minification', function () {
+            var blocks = {
+                'block0.vanilla.js': 'Hello0',
+                'block1.browser.js': 'Hello1'
+            };
+
+            return build(blocks, { sourcemap: true, compress: true })
+                .spread(function (content) {
+                    content.should.match(/Hello0,Hello1;\n\/\/#\ssourceMappingURL/);
                 });
         });
     });
