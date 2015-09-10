@@ -33,11 +33,13 @@
     "enb-source-map": "1.8.0",
     "uglify-js": "2.4.24",
     "vow": "0.4.10",
-    "vow-node": "0.3.0"
+    "vow-node": "0.3.0",
+    "ym": "0.1.2"
   },
   "devDependencies": {
     "chai": "3.2.0",
     "chai-as-promised": "5.1.0",
+    "chai-string": "1.1.2",
     "enb": ">= 0.8.22",
     "istanbul": "0.3.14",
     "jscs": "1.13.1",

@@ -9,7 +9,8 @@ var fs = require('fs'),
     dropRequireCache = require('enb/lib/fs/drop-require-cache'),
     MockNode = require('mock-enb/lib/mock-node'),
     NodeJsTech = require('../../techs/node-js'),
-    rimraf = require('rimraf');
+    rimraf = require('rimraf'),
+    EOL = require('os').EOL;
 
 describe('node-js', function () {
     var globals;
@@ -199,6 +200,52 @@ describe('node-js', function () {
                     dropRequireCache(require, pathToModule);
                     throw err;
                 });
+        });
+
+        describe('ym', function () {
+            var YMFilename = require.resolve('ym'),
+                YMContents = fs.readFileSync(YMFilename, 'utf-8');
+
+            afterEach(function () {
+                delete global.modules;
+            });
+
+            var scheme = {
+                blocks: {
+                    'block.node.js': [
+                        'modules.define("my-module", function (provide) {',
+                        '    provide("module-value")',
+                        '});'
+                    ].join(EOL)
+                },
+                // jscs:disable
+                node_modules: {
+                    ym: {
+                        'index.js': YMContents
+                    }
+                }
+                // jscs:enable
+            };
+
+            it('must provide ym to `global.modules`', function () {
+                return build(scheme, { includeYM: true })
+                    .then(function () {
+                        dropRequireCache(require, targetPath);
+                        require(targetPath);
+
+                        global.modules.getState('my-module').should.eql('NOT_RESOLVED');
+                    });
+            });
+
+            it('must provide ym to `global.modules` in bundled file', function () {
+                return build(scheme, { includeYM: true, bundled: true })
+                    .then(function () {
+                        dropRequireCache(require, targetPath);
+                        require(targetPath);
+
+                        global.modules.getState('my-module').should.eql('NOT_RESOLVED');
+                    });
+            });
         });
     });
 });
