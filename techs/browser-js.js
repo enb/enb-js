@@ -25,6 +25,7 @@ var vow = require('vow'),
  *                                                                                 files to IIFE.
  * @param {Boolean}   [options.compress=false]                                     Minifies and compresses JS code.
  * @param {Boolean}   [options.sourcemap=false]                                    Includes inline source maps.
+ * @param {Boolean}   [options.includeYM=false]                                    Prepends code of YModules.
  *
  * @example
  * // Code in a file system before build:
@@ -61,17 +62,28 @@ module.exports = require('enb/lib/build-flow').create()
     .name('browser-js')
     .target('target', '?.browser.js')
     .useFileList(['vanilla.js', 'js', 'browser.js'])
+    .defineOption('includeYM', false)
     .defineOption('iife', false)
     .defineOption('compress', false)
     .defineOption('sourcemap', false)
     .builder(function (sourceFiles) {
-        return this._readSourceFiles(sourceFiles)
-            .then(function (sources) {
+        var promises = [this._readSourceFiles(sourceFiles)];
+
+        if (this._includeYM) {
+            promises.push(this._readYM());
+        }
+
+        return vow.all(promises)
+            .spread(function (sources, ymSource) {
                 var file = new File(this.node.resolvePath(this._target), { sourceMap: this._sourcemap }),
                     needWrapIIFE = this._iife,
                     needToAddComments = !this._compress,
                     compressOptions = { fromString: true },
                     compressed;
+
+                if (ymSource) {
+                    file.writeFileContent(ymSource.path, ymSource.contents);
+                }
 
                 sources.forEach(function (source) {
                     needToAddComments && file.writeLine('/* begin: ' + source.relPath + ' */');
@@ -117,6 +129,23 @@ module.exports = require('enb/lib/build-flow').create()
                         };
                     });
             }));
+        },
+        /**
+         * Reads source code of YModules.
+         *
+         * @protected
+         * @returns {Promise}
+         */
+        _readYM: function () {
+            var filename = require.resolve('ym');
+
+            return vfs.read(filename, 'utf-8')
+                .then(function (contents) {
+                    return {
+                        path: filename,
+                        contents: contents
+                    };
+                });
         }
     })
     .createTech();

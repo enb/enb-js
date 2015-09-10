@@ -1,5 +1,6 @@
 require('chai')
     .use(require('chai-as-promised'))
+    .use(require('chai-string'))
     .should();
 
 var EOL = require('os').EOL,
@@ -16,9 +17,9 @@ describe('browser-js', function () {
     describe('join files', function () {
         it('must join all files', function () {
             var blocks = {
-                'block0.vanilla.js': 'Hello0',
-                'block1.browser.js': 'Hello1'
-            },
+                    'block0.vanilla.js': 'Hello0',
+                    'block1.browser.js': 'Hello1'
+                },
                 reference = [
                 '/* begin: ../blocks/block0.vanilla.js */',
                 'Hello0',
@@ -77,6 +78,19 @@ describe('browser-js', function () {
         });
     });
 
+    describe('ym', function () {
+        var blocks = {
+            'block.browser.js': 'Hello'
+        };
+
+        it('must prepend ym code', function () {
+            return build(blocks, { includeYM: true })
+                .spread(function (res) {
+                    res.should.startWith('module.exports = "ym"');
+                });
+        });
+    });
+
     describe('sourcemap', function () {
         it('must generate sourcemap', function () {
             var blocks = {
@@ -107,7 +121,14 @@ describe('browser-js', function () {
 function build(blocks, options, isNeedRequire) {
     mock({
         blocks: blocks,
-        bundle: {}
+        bundle: {},
+        // jscs:disable
+        node_modules: {
+            'ym': {
+                'index.js': 'module.exports = "ym";'
+            }
+        }
+        // jscs:enable
     });
 
     var bundle = new MockNode('bundle'),
