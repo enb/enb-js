@@ -23,6 +23,7 @@ browser-js
 * [iife](#iife)
 * [compress](#compress)
 * [sourcemap](#sourcemap)
+* [includeYM](#includeym)
 
 ### target
 
@@ -63,6 +64,12 @@ browser-js
 Построение карт кода (source maps) с информацией об исходных файлах.
 
 Карты встраиваются в скомпилированный файл `?.files`, а не хранятся в отдельном файле с расширением `.map`.
+
+#### includeYM
+
+Тип: `Boolean`. По умолчанию: `false`.
+
+Добавляет код [YModules](https://ru.bem.info/tools/bem/modules/) в начало файла.
 
 --------------------------------------
 
@@ -121,6 +128,7 @@ node-js
 * [sourceSuffixes](#sourcesuffixes-1)
 * [devMode](#devmode)
 * [bundled](#bundled)
+* [includeYM](#includeym-1)
 
 #### target
 
@@ -154,6 +162,12 @@ node-js
 Собирает все исходные файлы в один файл.
 
 При использовании этой опции отпадает необходимость в хранении исходных JS-файлов для выполнения собранного файла.
+
+#### includeYM
+
+Тип: `Boolean`. По умолчанию: `false`.
+
+Предоставляет [YModules](https://ru.bem.info/tools/bem/modules/) в глобальную переменную `modules`.
 
 --------------------------------------
 
