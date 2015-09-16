@@ -22,6 +22,7 @@
 
 ### Остальное
 
+* [ __*major*__ ] Пакет `enb-diverse-js` переименован в `enb-js` ([#14]).
 * Добавлены тесты на технологии `browser-js` и `node-js` ([#7]).
 * Обновлен jsdoc ([#23]).
 
@@ -34,12 +35,13 @@
 * Добавлена технология `browser-js`.
 * Добавлена технология `node-js`.
 
-[#13]: https://github.com/enb-make/enb-diverse-js/issues/13
-[#6]:  https://github.com/enb-make/enb-diverse-js/issues/6
-[#30]: https://github.com/enb-make/enb-diverse-js/issues/30
-[#12]: https://github.com/enb-make/enb-diverse-js/issues/12
-[#17]: https://github.com/enb-make/enb-diverse-js/issues/17
 [#31]: https://github.com/enb-make/enb-diverse-js/issues/31
-[#15]: https://github.com/enb-make/enb-diverse-js/issues/15
-[#7]:  https://github.com/enb-make/enb-diverse-js/issues/7
+[#30]: https://github.com/enb-make/enb-diverse-js/issues/30
 [#23]: https://github.com/enb-make/enb-diverse-js/issues/23
+[#17]: https://github.com/enb-make/enb-diverse-js/issues/17
+[#15]: https://github.com/enb-make/enb-diverse-js/issues/15
+[#14]: https://github.com/enb-make/enb-diverse-js/issues/14
+[#13]: https://github.com/enb-make/enb-diverse-js/issues/13
+[#12]: https://github.com/enb-make/enb-diverse-js/issues/12
+[#7]:  https://github.com/enb-make/enb-diverse-js/issues/7
+[#6]:  https://github.com/enb-make/enb-diverse-js/issues/6

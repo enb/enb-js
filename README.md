@@ -1,15 +1,15 @@
-enb-diverse-js
-==============
+enb-js
+======
 
-[![NPM version](https://img.shields.io/npm/v/enb-diverse-js.svg?style=flat)](https://www.npmjs.org/package/enb-diverse-js)
-[![Build Status](https://img.shields.io/travis/enb-make/enb-diverse-js/master.svg?style=flat&label=tests)](https://travis-ci.org/enb-make/enb-diverse-js)
-[![Coverage Status](https://img.shields.io/coveralls/enb-make/enb-diverse-js.svg?style=flat)](https://coveralls.io/r/enb-make/enb-diverse-js?branch=master)
-[![Dependency Status](https://img.shields.io/david/enb-make/enb-diverse-js.svg?style=flat)](https://david-dm.org/enb-make/enb-diverse-js)
+[![NPM version](https://img.shields.io/npm/v/enb-js.svg?style=flat)](https://www.npmjs.org/package/enb-js)
+[![Build Status](https://img.shields.io/travis/enb-make/enb-js/master.svg?style=flat&label=tests)](https://travis-ci.org/enb-make/enb-js)
+[![Coverage Status](https://img.shields.io/coveralls/enb-make/enb-js.svg?style=flat)](https://coveralls.io/r/enb-make/enb-js?branch=master)
+[![Dependency Status](https://img.shields.io/david/enb-make/enb-js.svg?style=flat)](https://david-dm.org/enb-make/enb-js)
 
 Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки
 JavaScript-кода, в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
 
-**Технологии пакета `enb-diverse-js`:**
+**Технологии пакета `enb-js`:**
 
 * [browser-js](api.ru.md#browser-js)
 * [node-js](api.ru.md#node-js)
@@ -18,10 +18,10 @@ JavaScript-кода, в проектах, построенных по [мето�
 
 ## Установка
 
-Установите пакет `enb-diverse-js`:
+Установите пакет `enb-js`:
 
 ```sh
-$ npm install --save-dev enb-diverse-js
+$ npm install --save-dev enb-js
 ```
 
 **Требования:** зависимость от пакета `enb` версии `0.16.0` или выше.
@@ -46,8 +46,8 @@ $ npm install --save-dev enb-diverse-js
 Чтобы собрать JS-код для исполнения в браузере подключите технологию [browser-js](api.ru.md#browser-js), а для работы в `Node.js` — [node-js](api.ru.md#node-js).
 
 ```js
-var BrowserJsTech = require('enb-diverse-js/techs/browser-js'),
-    NodeJsTech = require('enb-diverse-js/techs/node-js'),
+var BrowserJsTech = require('enb-js/techs/browser-js'),
+    NodeJsTech = require('enb-js/techs/node-js'),
     FileProvideTech = require('enb/techs/file-provider'),
     bemTechs = require('enb-bem-techs');
 
