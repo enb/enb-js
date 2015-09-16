@@ -1,6 +1,6 @@
 {
   "author": "Andrew Abramov <andrewblond@yandex.com>",
-  "description": "Diverse js techs for ENB: browser + node",
+  "description": "JS techs for ENB",
   "name": "enb-js",
   "version": "0.1.0",
   "repository": "git://github.com/enb-make/enb-js",
