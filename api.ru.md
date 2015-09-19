@@ -86,7 +86,7 @@ browser-js
  // bundle/
  // └── bundle.browser.js
 
-var BrowserJsTech = require('enb-diverse-js/techs/browser-js'),
+var BrowserJsTech = require('enb-js/techs/browser-js'),
     FileProvideTech = require('enb/techs/file-provider'),
     bemTechs = require('enb-bem-techs');
 
@@ -183,7 +183,7 @@ node-js
 // bundle/
 // └── bundle.node.js
 
-var NodeJsTech = require('enb-diverse-js/techs/node-js'),
+var NodeJsTech = require('enb-js/techs/node-js'),
     FileProvideTech = require('enb/techs/file-provider'),
     bemTechs = require('enb-bem-techs');
 
