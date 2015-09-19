@@ -95,7 +95,7 @@ module.exports = function(config) {
         // Получение списка файлов для сборки
         node.addTechs([
             [FileProvideTech, { target: '?.bemdecl.js' }],
-            [bemTechs.levels, levels: ['blocks']],
+            [bemTechs.levels, { levels: ['blocks'] }],
             [bemTechs.deps],
             [bemTechs.files]
         ]);
@@ -192,7 +192,7 @@ module.exports = function(config) {
         // Получение списка файлов для сборки
         node.addTechs([
             [FileProvideTech, { target: '?.bemdecl.js' }],
-            [bemTechs.levels, levels: ['blocks']],
+            [bemTechs.levels, { levels: ['blocks'] }],
             [bemTechs.deps],
             [bemTechs.files]
         ]);
