@@ -7,7 +7,7 @@ enb-js
 [![Dependency Status](https://img.shields.io/david/enb-make/enb-js.svg?style=flat)](https://david-dm.org/enb-make/enb-js)
 
 Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки
-JavaScript-кода, в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
+JavaScript-кода в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
 
 **Технологии пакета `enb-js`:**
 
@@ -43,7 +43,7 @@ $ npm install --save-dev enb-js
 Быстрый старт
 -------------
 
-Чтобы собрать JS-код для исполнения в браузере подключите технологию [browser-js](api.ru.md#browser-js), а для работы в `Node.js` — [node-js](api.ru.md#node-js).
+Чтобы собрать JS-код для исполнения в браузере, подключите технологию [browser-js](api.ru.md#browser-js), а для работы в `Node.js` — [node-js](api.ru.md#node-js).
 
 ```js
 var BrowserJsTech = require('enb-js/techs/browser-js'),
@@ -89,7 +89,7 @@ module.exports = function(config) {
 
 #### Source Maps
 
-Для удобной отладки кода в браузере следует включить генерацию карт кода с помошью опции [sourcemaps](api.ru.md#sourcemaps).
+Для удобной отладки кода в браузере следует включить генерацию карт кода с помощью опции [sourcemaps](api.ru.md#sourcemaps).
 
 #### Режим разработки для Node.js
 
@@ -127,7 +127,7 @@ onEnd(function () {
 /* end: blocks/parting/parting.js */
 ```
 
-Чтобы исключить подобное влияние следует использовать опцию [iife](api.ru.md#iife), которая обернет код каждого исходного файла с помощью [IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression).
+Чтобы исключить подобное влияние, следует использовать опцию [iife](api.ru.md#iife), которая обернет код каждого исходного файла с помощью [IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression).
 
 ### Минимизация кода
 
