@@ -7,6 +7,7 @@ var EOL = require('os').EOL,
     mock = require('mock-fs'),
     FileList = require('enb/lib/file-list'),
     MockNode = require('mock-enb/lib/mock-node'),
+    loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     browserJsTech = require('../../techs/browser-js');
 
 describe('browser-js', function () {
@@ -135,7 +136,7 @@ function build(blocks, options, isNeedRequire) {
         fileList = new FileList(),
         testFunc;
 
-    fileList.loadFromDirSync('blocks');
+    fileList.addFiles(loadDirSync('blocks'));
 
     bundle.provideTechData('?.files', fileList);
 

@@ -9,6 +9,7 @@ var fs = require('fs'),
     dropRequireCache = require('enb/lib/fs/drop-require-cache'),
     MockNode = require('mock-enb/lib/mock-node'),
     NodeJsTech = require('../../techs/node-js'),
+    loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     rimraf = require('rimraf'),
     EOL = require('os').EOL;
 
@@ -257,7 +258,7 @@ function build(scheme, options) {
     var bundle = new MockNode('bundle'),
         fileList = new FileList();
 
-    fileList.loadFromDirSync('blocks');
+    fileList.addFiles(loadDirSync('blocks'));
 
     bundle.provideTechData('?.files', fileList);
 

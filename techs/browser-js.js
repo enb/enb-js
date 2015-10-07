@@ -1,5 +1,7 @@
 var vow = require('vow'),
-    vfs = require('enb/lib/fs/async-fs'),
+    enb = require('enb'),
+    vfs = enb.asyncFS || require('enb/lib/fs/async-fs'),
+    buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
     utils = require('enb-source-map/lib/utils'),
     File = require('enb-source-map/lib/file'),
     minify = require('uglify-js').minify;
@@ -58,7 +60,7 @@ var vow = require('vow'),
  *     });
  * };
  */
-module.exports = require('enb/lib/build-flow').create()
+module.exports = buildFlow.create()
     .name('browser-js')
     .target('target', '?.browser.js')
     .useFileList(['vanilla.js', 'js', 'browser.js'])
