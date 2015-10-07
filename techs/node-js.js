@@ -1,6 +1,8 @@
 var EOL = require('os').EOL,
     vow = require('vow'),
-    vfs = require('enb/lib/fs/async-fs'),
+    enb = require('enb'),
+    vfs = enb.asyncFS || require('enb/lib/fs/async-fs'),
+    buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
     browserify = require('browserify'),
     promisify = require('vow-node').promisify;
 
@@ -56,7 +58,7 @@ var EOL = require('os').EOL,
  *     });
  * };
  */
-module.exports = require('enb/lib/build-flow').create()
+module.exports = buildFlow.create()
     .name('node-js')
     .target('target', '?.node.js')
     .useFileList(['vanilla.js', 'node.js'])

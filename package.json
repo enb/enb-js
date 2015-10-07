@@ -26,7 +26,7 @@
     "node": ">= 0.8.0"
   },
   "peerDependencies": {
-    "enb": ">= 0.8.22"
+    "enb": ">= 0.15.0 <2.0.0"
   },
   "dependencies": {
     "browserify": "11.1.0",
@@ -40,12 +40,12 @@
     "chai": "3.2.0",
     "chai-as-promised": "5.1.0",
     "chai-string": "1.1.2",
-    "enb": ">= 0.8.22",
+    "enb": ">= 0.15.0 <2.0.0",
     "istanbul": "0.3.20",
     "jscs": "1.13.1",
     "jshint": "2.8.0",
     "mocha": "2.3.2",
-    "mock-enb": "0.2.0",
+    "mock-enb": "0.3.0",
     "mock-fs": "3.2.0",
     "rimraf": "2.4.3"
   },
