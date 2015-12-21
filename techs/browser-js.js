@@ -77,20 +77,21 @@ module.exports = buildFlow.create()
 
         return vow.all(promises)
             .spread(function (sources, ymSource) {
-                var file = new File(this.node.resolvePath(this._target), { sourceMap: this._sourcemap }),
+                var node = this.node,
+                    file = new File(node.resolvePath(this._target), { sourceMap: this._sourcemap }),
                     needWrapIIFE = this._iife,
                     needToAddComments = !this._compress,
                     compressOptions = { fromString: true },
                     compressed;
 
                 if (ymSource) {
-                    file.writeFileContent(ymSource.path, ymSource.contents);
+                    file.writeFileContent(node.relativePath(ymSource.path), ymSource.contents);
                 }
 
                 sources.forEach(function (source) {
                     needToAddComments && file.writeLine('/* begin: ' + source.relPath + ' */');
                     needWrapIIFE && file.writeLine('(function(){');
-                    file.writeFileContent(source.path, source.contents);
+                    file.writeFileContent(source.relPath, source.contents);
                     needWrapIIFE && file.writeLine('}());');
                     needToAddComments && file.writeLine('/* end: ' + source.relPath + ' */');
                 });
