@@ -2,9 +2,9 @@ enb-js
 ======
 
 [![NPM version](https://img.shields.io/npm/v/enb-js.svg?style=flat)](https://www.npmjs.org/package/enb-js)
-[![Build Status](https://img.shields.io/travis/enb-make/enb-js/master.svg?style=flat&label=tests)](https://travis-ci.org/enb-make/enb-js)
-[![Coverage Status](https://img.shields.io/coveralls/enb-make/enb-js.svg?style=flat)](https://coveralls.io/r/enb-make/enb-js?branch=master)
-[![Dependency Status](https://img.shields.io/david/enb-make/enb-js.svg?style=flat)](https://david-dm.org/enb-make/enb-js)
+[![Build Status](https://img.shields.io/travis/enb/enb-js/master.svg?style=flat&label=tests)](https://travis-ci.org/enb/enb-js)
+[![Coverage Status](https://img.shields.io/coveralls/enb/enb-js.svg?style=flat)](https://coveralls.io/r/enb/enb-js?branch=master)
+[![Dependency Status](https://img.shields.io/david/enb/enb-js.svg?style=flat)](https://david-dm.org/enb/enb-js)
 
 Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки
 JavaScript-кода в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).

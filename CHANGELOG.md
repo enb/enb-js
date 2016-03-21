@@ -40,14 +40,14 @@
 * Добавлена технология `browser-js`.
 * Добавлена технология `node-js`.
 
-[#45]: https://github.com/enb-make/enb-js/pull/45
-[#31]: https://github.com/enb-make/enb-js/issues/31
-[#30]: https://github.com/enb-make/enb-js/issues/30
-[#23]: https://github.com/enb-make/enb-js/issues/23
-[#17]: https://github.com/enb-make/enb-js/issues/17
-[#15]: https://github.com/enb-make/enb-js/issues/15
-[#14]: https://github.com/enb-make/enb-js/issues/14
-[#13]: https://github.com/enb-make/enb-js/issues/13
-[#12]: https://github.com/enb-make/enb-js/issues/12
-[#7]:  https://github.com/enb-make/enb-js/issues/7
-[#6]:  https://github.com/enb-make/enb-js/issues/6
+[#45]: https://github.com/enb/enb-js/pull/45
+[#31]: https://github.com/enb/enb-js/issues/31
+[#30]: https://github.com/enb/enb-js/issues/30
+[#23]: https://github.com/enb/enb-js/issues/23
+[#17]: https://github.com/enb/enb-js/issues/17
+[#15]: https://github.com/enb/enb-js/issues/15
+[#14]: https://github.com/enb/enb-js/issues/14
+[#13]: https://github.com/enb/enb-js/issues/13
+[#12]: https://github.com/enb/enb-js/issues/12
+[#7]:  https://github.com/enb/enb-js/issues/7
+[#6]:  https://github.com/enb/enb-js/issues/6
