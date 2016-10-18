@@ -4,6 +4,9 @@ var vow = require('vow'),
     buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
     utils = require('enb-source-map/lib/utils'),
     File = require('enb-source-map/lib/file'),
+    path = require('path'),
+    micromatch = require('micromatch'),
+    babelCore = require('babel-core'),
     minify = require('uglify-js').minify;
 
 /**
@@ -28,6 +31,9 @@ var vow = require('vow'),
  * @param {Boolean}   [options.compress=false]                                     Minifies and compresses JS code.
  * @param {Boolean}   [options.sourcemap=false]                                    Includes inline source maps.
  * @param {Boolean}   [options.includeYM=false]                                    Prepends code of YModules.
+ * @param {String[]}   [options.transpilePatterns=[]]                              File patterns to transpile.
+ * @param {String[]}   [options.transpilePlugins=[]]                               Transpile plugins,<br>
+ *                                                                                 like http://babeljs.io/docs/plugins/
  *
  * @example
  * // Code in a file system before build:
@@ -68,6 +74,8 @@ module.exports = buildFlow.create()
     .defineOption('iife', false)
     .defineOption('compress', false)
     .defineOption('sourcemap', false)
+    .defineOption('transpilePatterns', [])
+    .defineOption('transpilePlugins', [])
     .builder(function (sourceFiles) {
         var promises = [this._readSourceFiles(sourceFiles)];
 
@@ -120,15 +128,24 @@ module.exports = buildFlow.create()
          * @returns {FileData[]}
          */
         _readSourceFiles: function (files) {
-            var node = this.node;
+            var node = this.node,
+                cwdPath = process.cwd(),
+                transpilePatterns = this._transpilePatterns,
+                babelOptions = {
+                    plugins: this._transpilePlugins
+                };
 
             return vow.all(files.map(function (file) {
                 return vfs.read(file.fullname, 'utf8')
                     .then(function (contents) {
+                        var isMatch = micromatch.any(
+                            path.relative(cwdPath, file.fullname),
+                            transpilePatterns);
+
                         return {
                             path: file.fullname,
                             relPath: node.relativePath(file.fullname),
-                            contents: contents
+                            contents: isMatch ? babelCore.transform(contents, babelOptions).code : contents
                         };
                     });
             }));
