@@ -1,6 +1,8 @@
 enb-js
 ======
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/enb/enb-js.svg)](https://greenkeeper.io/)
+
 [![NPM version](https://img.shields.io/npm/v/enb-js.svg?style=flat)](https://www.npmjs.org/package/enb-js)
 [![Build Status](https://img.shields.io/travis/enb/enb-js/master.svg?style=flat&label=tests)](https://travis-ci.org/enb/enb-js)
 [![Coverage Status](https://img.shields.io/coveralls/enb/enb-js.svg?style=flat)](https://coveralls.io/r/enb/enb-js?branch=master)
