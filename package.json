@@ -29,25 +29,25 @@
     "enb": ">= 0.15.0 <2.0.0"
   },
   "dependencies": {
-    "browserify": "11.1.0",
-    "enb-source-map": "1.8.0",
-    "uglify-js": "2.4.24",
-    "vow": "0.4.10",
+    "browserify": "14.3.0",
+    "enb-source-map": "1.10.0",
+    "uglify-js": "2.8.22",
+    "vow": "0.4.15",
     "vow-node": "0.3.0",
     "ym": "0.1.2"
   },
   "devDependencies": {
-    "chai": "3.2.0",
-    "chai-as-promised": "5.1.0",
-    "chai-string": "1.1.2",
+    "chai": "3.5.0",
+    "chai-as-promised": "6.0.0",
+    "chai-string": "1.3.0",
     "enb": ">= 0.15.0 <2.0.0",
-    "istanbul": "0.3.20",
-    "jscs": "1.13.1",
-    "jshint": "2.8.0",
-    "mocha": "2.3.2",
-    "mock-enb": "0.3.0",
-    "mock-fs": "3.2.0",
-    "rimraf": "2.4.3"
+    "istanbul": "0.4.5",
+    "jscs": "3.0.7",
+    "jshint": "2.9.4",
+    "mocha": "3.2.0",
+    "mock-enb": "0.3.6",
+    "mock-fs": "4.2.0",
+    "rimraf": "2.6.1"
   },
   "scripts": {
     "test": "npm run lint && npm run unit",
