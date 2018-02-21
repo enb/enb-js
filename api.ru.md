@@ -1,13 +1,11 @@
-API технологий
-==============
+# API технологий
 
 Пакет предоставляет следующие технологии:
 
 * [browser-js](#browser-js) — сборка JS-кода для работы в браузере.
-* [node-js](#node-js) — сборка JS-кода для работы в `Node.js`.
+* [node-js](#node-js) — сборка JS-кода для работы в Node.js.
 
-browser-js
-----------
+## browser-js
 
 Собирает исходные JS-файлы блоков, предназначенные для работы в браузере.
 
@@ -36,8 +34,7 @@ browser-js
 
 Тип: `String`. По умолчанию: `?.files`.
 
-Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://ru.bem.info/tools/bem/enb-bem-techs/readme#files)
-пакета [enb-bem-techs](https://ru.bem.info/tools/bem/enb-bem-techs/readme/).
+Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://github.com/enb/enb-bem-techs/blob/master/docs/api/api.ru.md#files) пакета [enb-bem-techs](https://github.com/enb/enb-bem-techs/blob/master/README.md).
 
 #### sourceSuffixes
 
@@ -69,22 +66,21 @@ browser-js
 
 Тип: `Boolean`. По умолчанию: `false`.
 
-Добавляет код [YModules](https://ru.bem.info/tools/bem/modules/) в начало файла.
-
---------------------------------------
+Добавляет код [YModules](https://github.com/ymaps/modules/blob/master/README.ru.md) в начало файла.
 
 **Пример**
 
 ```js
- // Код блоков в файловой системе до сборки
- // blocks/
- // ├── block.vanilla.js
- // └── block.browser.js
- // └── block.js
- //
- // После сбоки
- // bundle/
- // └── bundle.browser.js
+/* Код блоков в файловой системе до сборки
+* blocks/
+* ├── block.vanilla.js
+* └── block.browser.js
+* └── block.js
+*
+* После сбоки
+* bundle/
+* └── bundle.browser.js
+*/
 
 var BrowserJsTech = require('enb-js/techs/browser-js'),
     FileProvideTech = require('enb/techs/file-provider'),
@@ -107,10 +103,9 @@ module.exports = function(config) {
 };
 ```
 
-node-js
--------
+## node-js
 
-Собирает исходные JS-файлы блоков, предназначенные для работы в `Node.js`.
+Собирает исходные JS-файлы блоков, предназначенные для работы в Node.js.
 
 В сборку попадают как файлы, код которых будет работать в любой среде исполнения (с расширением `.vanilla.js`), так и файлы, код которых может работать только в Node.js (с расширением `.node.js`).
 
@@ -140,7 +135,7 @@ node-js
 
 Тип: `String`. По умолчанию: `?.files`.
 
-Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://github.com/enb-bem/enb-bem-techs/blob/master/docs/api.ru.md#files) пакета [enb-bem-techs](https://github.com/enb-bem/enb-bem-techs/blob/master/README.md).
+Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://github.com/enb/enb-bem-techs/blob/master/docs/api/api.ru.md#files) пакета [enb-bem-techs](https://github.com/enb/enb-bem-techs/blob/master/README.md).
 
 #### sourceSuffixes
 
@@ -166,21 +161,20 @@ node-js
 
 Тип: `Boolean`. По умолчанию: `false`.
 
-Предоставляет [YModules](https://ru.bem.info/tools/bem/modules/) в глобальную переменную `modules`.
-
---------------------------------------
+Предоставляет [YModules](https://github.com/ymaps/modules/blob/master/README.ru.md) в глобальную переменную `modules`.
 
 **Пример**
 
 ```js
-// Код блоков в файловой системе до сборки:
-// blocks/
-// ├── block.vanilla.js
-// └── block.node.js
-//
-// После сбоки:
-// bundle/
-// └── bundle.node.js
+/* Код блоков в файловой системе до сборки
+* blocks/
+* ├── block.vanilla.js
+* └── block.node.js
+*
+* После сбоки
+* bundle/
+* └── bundle.node.js
+*/
 
 var NodeJsTech = require('enb-js/techs/node-js'),
     FileProvideTech = require('enb/techs/file-provider'),
